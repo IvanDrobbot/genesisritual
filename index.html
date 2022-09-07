@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="scroll-smooth">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,11 +11,12 @@
 
 	<link rel="stylesheet" href="assets/css/style.css">
 
+	<script defer src="assets/js/plugins/intersect.min.js"></script>
 	<script defer src="assets/js/alpine.min.js"></script>
 </head>
 <body class="font-ptsans bg-deadlight" :class="stacked ? 'overflow-hidden' : 'overflow-auto'" x-data="{stacked: false}">
 	<header class="header w-full bg-no-repeat" style="background: #F2F6F9 url(https://www.pd-ritual.ru/templates/pd_ritual_v02/images/hdr-bg-clouds3.jpg) 0px -193px;">
-		<div class="container" x-ref="hero">
+		<div class="container">
 			<div class="flex justify-between semi:justify-center">
 				<div class="basis-1/3 flex flex-col justify-center regular:hidden">
 					<div>
@@ -42,9 +43,10 @@
 				</div>
 			</div>
 		</div>
-		<nav class="menu" x-data="{sticky: false}" @scroll.window="window.scrollY > $refs.hero.offsetHeight ? sticky = true : sticky = false">
-			<div :class="sticky ? 'w-full fixed top-0' : 'container'">
-				<div :class="sticky ? 'bg-primary' : 'bg-primarya'">
+		<nav class="menu" x-data="{sticky: false}">
+			<div x-intersect:enter="sticky = false" x-intersect:leave="sticky = true"></div>
+			<div :class="sticky ? 'w-full fixed top-0 z-[100000]' : 'container'">
+				<div class="transition-all duration-200 ease-in-out" :class="sticky ? 'bg-primary' : 'bg-primarya'">
 					<div class="w-full flex justify-between" :class="sticky ? 'container' : ''">
 						<div x-data="{
 							openMenu: false,
@@ -228,68 +230,107 @@
 				<div x-show="tabindex === 0">
 					<div class="py-[10px]">
 						<div class="flex flex-col text-semi">
-							<div class="w-full flex items-center min-h-[92px] border-[3px] border-primary rounded-[3px] p-[10px] my-[5px] middle:flex-col middle:items-start">
-								<div class="basis-[70%] text">
-									Стоимость похорон по тарифу <strong>«Эконом»</strong> 
-									<br> 
-									<br>
-									от 6 150 руб.
-								</div>
-								<div class="basis-[30%] h-full middle:mt-[15px]">
-									<div class="flex justify-center">
-										<a href="#" class="border-b-[1px] border-dashed border-b-black">Подробнее</a>
+							<div class="w-full border-[3px] border-primary rounded-[3px] my-[5px]" x-data="{dropdown: false}">
+								<div class="relative overflow-hidden">
+									<div class="w-full flex p-[10px] items-center min-h-[92px] middle:flex-col middle:items-start">
+										<div class="basis-[70%] text">
+											Стоимость похорон по тарифу <strong>«Эконом»</strong> 
+											<br> 
+											<br>
+											от 6 150 руб.
+										</div>
+										<div class="basis-[30%] middle:w-full middle:mt-[15px]">
+											<div class="flex justify-center">
+												<button type="button" class="border-b-[1px] border-dashed border-b-white text-white text-shadow-lg middle:bg-secondary middle:py-3 middle:w-full middle:text-shadow-none middle:border-transparent" @click="dropdown = !dropdown">Подробнее</button>
+											</div>
+										</div>
 									</div>
+									<div class="triangle-big overflow-hidden" :class="dropdown ? 'active' : ''" ></div>
 								</div>
-							</div>
-							<div class="w-full flex items-center min-h-[92px] border-[3px] border-primary rounded-[3px] p-[10px] my-[5px] middle:flex-col middle:items-start">
-								<div class="basis-[70%] text">
-									Стоимость похорон по тарифу <strong>«Эконом»</strong> 
-									<br> 
-									<br>
-									от 6 150 руб.
-								</div>
-								<div class="basis-[30%] h-full middle:mt-[15px]">
-									<div class="flex justify-center">
-										<a href="#" class="border-b-[1px] border-dashed border-b-black">Подробнее</a>
-									</div>
-								</div>
-							</div>
-							<div class="w-full flex items-center min-h-[92px] border-[3px] border-primary rounded-[3px] p-[10px] my-[5px] middle:flex-col middle:items-start">
-								<div class="basis-[70%] text">
-									Стоимость похорон по тарифу <strong>«Эконом»</strong> 
-									<br> 
-									<br>
-									от 6 150 руб.
-								</div>
-								<div class="basis-[30%] h-full middle:mt-[15px]">
-									<div class="flex justify-center">
-										<a href="#" class="border-b-[1px] border-dashed border-b-black">Подробнее</a>
-									</div>
-								</div>
-							</div>
-							<div class="w-full flex items-center min-h-[92px] border-[3px] border-primary rounded-[3px] p-[10px] my-[5px] middle:flex-col middle:items-start">
-								<div class="basis-[70%] text">
-									Стоимость похорон по тарифу <strong>«Эконом»</strong> 
-									<br> 
-									<br>
-									от 6 150 руб.
-								</div>
-								<div class="basis-[30%] h-full middle:mt-[15px]">
-									<div class="flex justify-center">
-										<a href="#" class="border-b-[1px] border-dashed border-b-black">Подробнее</a>
-									</div>
-								</div>
-							</div>
-							<div class="w-full flex items-center min-h-[92px] border-[3px] border-primary rounded-[3px] p-[10px] my-[5px] middle:flex-col middle:items-start">
-								<div class="basis-[70%] text">
-									Стоимость похорон по тарифу <strong>«Эконом»</strong> 
-									<br> 
-									<br>
-									от 6 150 руб.
-								</div>
-								<div class="basis-[30%] h-full middle:mt-[15px]">
-									<div class="flex justify-center">
-										<a href="#" class="border-b-[1px] border-dashed border-b-black">Подробнее</a>
+								<div class="overflow-y-hidden transition-all ease-in-out duration-500" style="height: 0px;" :style="dropdown ? `height: ${$el.scrollHeight}px;` : 'height: 0px;'">
+									<div class="px-[15px] py-[25px] min-w-[700px] overflow-x-auto">
+										<table cellspacing="1" cellpadding="1" style="width: 100%;">
+											<tbody>
+												<tr>
+													<td style="font-weight: bold;">№ п/п</td>
+													<td style="font-weight: bold;">Наименование ритуальных принадлежностей и услуг</td>
+													<td style="font-weight: bold;">ед. изм.</td>
+													<td style="font-weight: bold;">стоимость, руб</td>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>Гроб деревянный обитый тканью (Гладь)</td>
+													<td>1 шт.</td>
+													<td>1400</td>
+												</tr>
+												<tr>
+													<td>2</td>
+													<td>Постель (внутренняя отделка гроба)</td>
+													<td>1 шт.</td>
+													<td>1050</td>
+												</tr>
+												<tr>
+													<td>3</td>
+													<td>Подушка атласная</td>
+													<td>1 шт.</td>
+													<td>550</td>
+												</tr>
+												<tr>
+													<td>4</td>
+													<td>Покрывало (белое или православное)</td>
+													<td>1 шт.</td>
+													<td>850</td>
+												</tr>
+												<tr>
+													<td>5</td>
+													<td>Тапочки кож зам.</td>
+													<td>1 шт.</td>
+													<td>150</td>
+												</tr>
+												<tr>
+													<td>6</td>
+													<td>Выезд агента</td>
+													<td>1 пара</td>
+													<td>бесплатно</td>
+												</tr>
+												<tr>
+													<td>7</td>
+													<td>Доставка принадлежностей в МОРГ</td>
+													<td>1 шт.</td>
+													<td>1 800</td>
+												</tr>
+												<tr>
+													<td>8</td>
+													<td>Оформление заказа</td>
+													<td>1 усл.</td>
+													<td>350</td>
+												</tr>
+												<tr>
+													<td style="font-weight: bold;">9</td>
+													<td style="font-weight: bold;">Итого по разделу</td>
+													<td style="font-weight: bold;">&nbsp;</td>
+													<td style="font-weight: bold;">6150</td>
+												</tr>
+												<tr>
+													<td>10</td>
+													<td>Транспорт (маршрут: морг - кладбище/крематорий)</td>
+													<td>1 шт.</td>
+													<td>4000</td>
+												</tr>
+												<tr>
+													<td>11</td>
+													<td>Заказ катафального транспорта</td>
+													<td>1 шт.</td>
+													<td>750</td>
+												</tr>
+												<tr>
+													<td style="font-weight: bold;">12</td>
+													<td style="font-weight: bold;">Итого по разделу</td>
+													<td style="font-weight: bold;">&nbsp;</td>
+													<td style="font-weight: bold;">4750</td>
+												</tr>
+											</tbody>
+										</table>
 									</div>
 								</div>
 							</div>
@@ -299,73 +340,112 @@
 				<div x-show="tabindex === 1">
 					<div class="py-[10px]">
 						<div class="flex flex-col text-semi">
-							<div class="w-full flex items-center min-h-[92px] border-[3px] border-primary rounded-[3px] p-[10px] my-[5px]">
-								<div class="basis-[70%] text">
-									Стоимость похорон по тарифу <strong>«Премиум»</strong> 
-									<br> 
-									<br>
-									от 10 999 руб.
-								</div>
-								<div class="basis-[30%] h-full relative">
-									<div class="flex justify-center">
-										<a href="#" class="border-b-[1px] border-dashed border-b-black">Подробнее</a>
+							<div class="w-full border-[3px] border-primary rounded-[3px] my-[5px]" x-data="{dropdown: false}">
+								<div class="relative overflow-hidden">
+									<div class="w-full flex p-[10px] items-center min-h-[92px] middle:flex-col middle:items-start">
+										<div class="basis-[70%] text">
+											Стоимость похорон по тарифу <strong>«Эконом»</strong> 
+											<br> 
+											<br>
+											от 6 150 руб.
+										</div>
+										<div class="basis-[30%] middle:w-full middle:mt-[15px]">
+											<div class="flex justify-center">
+												<button type="button" class="border-b-[1px] border-dashed border-b-white text-white text-shadow-lg middle:bg-secondary middle:py-3 middle:w-full middle:text-shadow-none middle:border-transparent" @click="dropdown = !dropdown">Подробнее</button>
+											</div>
+										</div>
 									</div>
+									<div class="triangle-big overflow-hidden" :class="dropdown ? 'active' : ''" ></div>
 								</div>
-							</div>
-							<div class="w-full flex items-center min-h-[92px] border-[3px] border-primary rounded-[3px] p-[10px] my-[5px]">
-								<div class="basis-[70%] text">
-									Стоимость похорон по тарифу <strong>«Премиум»</strong> 
-									<br> 
-									<br>
-									от 10 999 руб.
-								</div>
-								<div class="basis-[30%] h-full relative">
-									<div class="flex justify-center">
-										<a href="#" class="border-b-[1px] border-dashed border-b-black">Подробнее</a>
-									</div>
-								</div>
-							</div>
-							<div class="w-full flex items-center min-h-[92px] border-[3px] border-primary rounded-[3px] p-[10px] my-[5px]">
-								<div class="basis-[70%] text">
-									Стоимость похорон по тарифу <strong>«Премиум»</strong> 
-									<br> 
-									<br>
-									от 10 999 руб.
-								</div>
-								<div class="basis-[30%] h-full relative">
-									<div class="flex justify-center">
-										<a href="#" class="border-b-[1px] border-dashed border-b-black">Подробнее</a>
-									</div>
-								</div>
-							</div>
-							<div class="w-full flex items-center min-h-[92px] border-[3px] border-primary rounded-[3px] p-[10px] my-[5px]">
-								<div class="basis-[70%] text">
-									Стоимость похорон по тарифу <strong>«Эконом»</strong> 
-									<br> 
-									<br>
-									от 10 999 руб.
-								</div>
-								<div class="basis-[30%] h-full relative">
-									<div class="flex justify-center">
-										<a href="#" class="border-b-[1px] border-dashed border-b-black">Подробнее</a>
-									</div>
-								</div>
-							</div>
-							<div class="w-full flex items-center min-h-[92px] border-[3px] border-primary rounded-[3px] p-[10px] my-[5px]">
-								<div class="basis-[70%] text">
-									Стоимость похорон по тарифу <strong>«Премиум»</strong> 
-									<br> 
-									<br>
-									от 10 999 руб.
-								</div>
-								<div class="basis-[30%] h-full relative">
-									<div class="flex justify-center">
-										<a href="#" class="border-b-[1px] border-dashed border-b-black">Подробнее</a>
+								<div class="overflow-y-hidden transition-all ease-in-out duration-500" style="height: 0px;" :style="dropdown ? `height: ${$el.scrollHeight}px;` : 'height: 0px;'">
+									<div class="px-[15px] py-[25px] min-w-[700px] overflow-x-auto">
+										<table cellspacing="1" cellpadding="1" style="width: 100%;">
+											<tbody>
+												<tr>
+													<td style="font-weight: bold;">№ п/п</td>
+													<td style="font-weight: bold;">Наименование ритуальных принадлежностей и услуг</td>
+													<td style="font-weight: bold;">ед. изм.</td>
+													<td style="font-weight: bold;">стоимость, руб</td>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>Гроб деревянный обитый тканью (Гладь)</td>
+													<td>1 шт.</td>
+													<td>1400</td>
+												</tr>
+												<tr>
+													<td>2</td>
+													<td>Постель (внутренняя отделка гроба)</td>
+													<td>1 шт.</td>
+													<td>1050</td>
+												</tr>
+												<tr>
+													<td>3</td>
+													<td>Подушка атласная</td>
+													<td>1 шт.</td>
+													<td>550</td>
+												</tr>
+												<tr>
+													<td>4</td>
+													<td>Покрывало (белое или православное)</td>
+													<td>1 шт.</td>
+													<td>850</td>
+												</tr>
+												<tr>
+													<td>5</td>
+													<td>Тапочки кож зам.</td>
+													<td>1 шт.</td>
+													<td>150</td>
+												</tr>
+												<tr>
+													<td>6</td>
+													<td>Выезд агента</td>
+													<td>1 пара</td>
+													<td>бесплатно</td>
+												</tr>
+												<tr>
+													<td>7</td>
+													<td>Доставка принадлежностей в МОРГ</td>
+													<td>1 шт.</td>
+													<td>1 800</td>
+												</tr>
+												<tr>
+													<td>8</td>
+													<td>Оформление заказа</td>
+													<td>1 усл.</td>
+													<td>350</td>
+												</tr>
+												<tr>
+													<td style="font-weight: bold;">9</td>
+													<td style="font-weight: bold;">Итого по разделу</td>
+													<td style="font-weight: bold;">&nbsp;</td>
+													<td style="font-weight: bold;">6150</td>
+												</tr>
+												<tr>
+													<td>10</td>
+													<td>Транспорт (маршрут: морг - кладбище/крематорий)</td>
+													<td>1 шт.</td>
+													<td>4000</td>
+												</tr>
+												<tr>
+													<td>11</td>
+													<td>Заказ катафального транспорта</td>
+													<td>1 шт.</td>
+													<td>750</td>
+												</tr>
+												<tr>
+													<td style="font-weight: bold;">12</td>
+													<td style="font-weight: bold;">Итого по разделу</td>
+													<td style="font-weight: bold;">&nbsp;</td>
+													<td style="font-weight: bold;">4750</td>
+												</tr>
+											</tbody>
+										</table>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>	
+					</div>
 				</div>
 			</div>
 		</div>
@@ -438,6 +518,199 @@
 				<a href="#" class="inline-block px-3 py-2 hover:bg-secondary hover:text-white focus:bg-secondary focus:text-white transition">магазин ритуальных принадлежностей Балашиха</a>
 			</div>
 		</div>
+		<div class="text" style="margin-top: 50px; margin-bottom: 20px;">
+			<div class="container">
+				<h2>Вопрос - ответ</h2>
+			</div>
+		</div>
+		<div class="accordeon">
+			<div class="container">
+				<div class="flex flex-col" x-data="{droped: 0}">
+					<div x-data="{opened: false}" class="mb-[4px]">
+						<button type="button" @click="opened && droped == 0 ? opened = false : opened = true; droped = 0" class="w-full bg-secondary text-white font-bold text-left py-[7px] px-[6px] rounded-[5px]">Каким образом можно заказать ритуальные услуги в вашем агентстве?</button>
+						<div class="overflow-hidden overflow-y-hidden transition-all ease-in-out duration-300"style="height: 0px;" :style="droped == 0 && opened ? `height: ${$el.scrollHeight}px;` : 'height: 0px;'">
+							<div class="shadow-2ir -z-1 px-[4px] py-[6px] rounded-[3px]">
+							Вызвать ритуального агента можно по телефону горячей линии 8 (495) 799-83-78.
+							</div>
+						</div>
+					</div>
+					<div x-data="{opened: false}" class="mb-[4px]">
+						<button type="button" @click="opened && droped == 1 ? opened = false : opened = true; droped = 1" class="w-full bg-secondary text-white font-bold text-left py-[7px] px-[6px] rounded-[5px]">Каким образом можно заказать ритуальные услуги в вашем агентстве?</button>
+
+						<div class="overflow-hidden overflow-y-hidden transition-all ease-in-out duration-300"style="height: 0px;" :style="droped == 1 && opened ? `height: ${$el.scrollHeight}px;` : 'height: 0px;'">
+							<div class="shadow-2ir -z-1 px-[4px] py-[6px] rounded-[3px]">
+							Вызвать ритуального агента можно по телефону горячей линии 8 (495) 799-83-78.
+							</div>
+						</div>
+					</div>
+					<div x-data="{opened: false}" class="mb-[4px]">
+						<button type="button" @click="opened && droped == 2 ? opened = false : opened = true; droped = 2" class="w-full bg-secondary text-white font-bold text-left py-[7px] px-[6px] rounded-[5px]">Каким образом можно заказать ритуальные услуги в вашем агентстве?</button>
+
+						<div class="overflow-hidden overflow-y-hidden transition-all ease-in-out duration-300"style="height: 0px;" :style="droped == 2 && opened ? `height: ${$el.scrollHeight}px;` : 'height: 0px;'">
+							<div class="shadow-2ir -z-1 px-[4px] py-[6px] rounded-[3px]">
+							Вызвать ритуального агента можно по телефону горячей линии 8 (495) 799-83-78.
+							</div>
+						</div>					</div>
+				</div>
+			</div>
+		</div>
+		<div class="classes">
+			<div class="container">
+				<div class="flex flex-wrap">
+					<div class="col-tsl overflow-hidden">
+						<a href="#" class="overflow-hidden relative img-op">
+							<img src="http://pd-ritual.ru/images/banners/p-ekonom.jpg" class="rounded-t-[5px] w-full h-[192px] object-cover opacity-70" alt="">
+							<div class="absolute bottom-0 left-0 w-full bg-temny text-white px-[10px] py-[15px]">
+								<span class="text-semi font-medium">Эконом</span>
+								<br>
+								<span>от 6 150 рублей</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-tsl overflow-hidden">
+						<a href="#" class="overflow-hidden relative img-op">
+							<img src="http://pd-ritual.ru/images/banners/p-standart.jpg" class="rounded-t-[5px] w-full h-[192px] object-cover opacity-70" alt="">
+							<div class="absolute bottom-0 left-0 w-full bg-temny text-white px-[10px] py-[15px]">
+								<span class="text-semi font-medium">Эконом</span>
+								<br>
+								<span>от 6 150 рублей</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-tsl overflow-hidden">
+						<a href="#" class="overflow-hidden relative img-op">
+							<img src="http://pd-ritual.ru/images/banners/p-premium.jpg" class="rounded-t-[5px] w-full h-[192px] object-cover opacity-70" alt="">
+							<div class="absolute bottom-0 left-0 w-full bg-temny text-white px-[10px] py-[15px]">
+								<span class="text-semi font-medium">Эконом</span>
+								<br>
+								<span>от 6 150 рублей</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-tsl overflow-hidden">
+						<a href="#" class="overflow-hidden relative img-op">
+							<img src="http://pd-ritual.ru/images/banners/p-prestige.jpg" class="rounded-t-[5px] w-full h-[192px] object-cover opacity-70" alt="">
+							<div class="absolute bottom-0 left-0 w-full bg-temny text-white px-[10px] py-[15px]">
+								<span class="text-semi font-medium">Эконом</span>
+								<br>
+								<span>от 6 150 рублей</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-tsl overflow-hidden">
+						<a href="#" class="overflow-hidden relative img-op">
+							<img src="http://pd-ritual.ru/images/banners/p-elite.jpg" class="rounded-t-[5px] w-full h-[192px] object-cover opacity-70" alt="">
+							<div class="absolute bottom-0 left-0 w-full bg-temny text-white px-[10px] py-[15px]">
+								<span class="text-semi font-medium">Эконом</span>
+								<br>
+								<span>от 6 150 рублей</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-tsl overflow-hidden">
+						<a href="#" class="overflow-hidden relative img-op">
+							<img src="http://pd-ritual.ru/images/banners/p-prestige.jpg" class="rounded-t-[5px] w-full h-[192px] object-cover opacity-70" alt="">
+							<div class="absolute bottom-0 left-0 w-full bg-temny text-white px-[10px] py-[15px]">
+								<span class="text-semi font-medium">Эконом</span>
+								<br>
+								<span>от 6 150 рублей</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-tsl overflow-hidden">
+						<a href="#" class="overflow-hidden relative img-op">
+							<img src="http://pd-ritual.ru/images/banners/p-elite.jpg" class="rounded-t-[5px] w-full h-[192px] object-cover opacity-70" alt="">
+							<div class="absolute bottom-0 left-0 w-full bg-temny text-white px-[10px] py-[15px]">
+								<span class="text-semi font-medium">Эконом</span>
+								<br>
+								<span>от 6 150 рублей</span>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="archive" style="margin-top: 25px; margin-bottom: 35px;" x-data="{tabindex: 0, maxindex: 1}">
+			<div class="container bg-white p-[10px] pb-0">
+				<div class="flex justify-center flex-wrap">
+					<button type="button" class="inline-block py-[15px] px-[20px] uppercase text-medium border-transparent border-[1px] mr-[3px] min-w-[190px] mb-[5px] middle:w-full bg-deadlight" :class="tabindex === 0 ? 'bg-secondary text-white' : 'bg-deadlight hover:bg-cyanid hover:border-solid hover:border-pepel hover:text-pepel text-slim'" @click="tabindex = 0">Кладбища</button>
+					<button type="button" class="inline-block py-[15px] px-[20px] uppercase text-medium border-transparent border-[1px] mr-[3px] min-w-[190px] mb-[5px] middle:w-full bg-deadlight" :class="tabindex === 1 ? 'bg-secondary text-white' : 'bg-deadlight hover:bg-cyanid hover:border-solid hover:border-pepel hover:text-pepel text-slim'" @click="tabindex = 1">Морги</button>
+					<button type="button" class="inline-block py-[15px] px-[20px] uppercase text-medium border-transparent border-[1px] mr-[3px] min-w-[190px] mb-[5px] middle:w-full bg-deadlight" :class="tabindex === 2 ? 'bg-secondary text-white' : 'bg-deadlight hover:bg-cyanid hover:border-solid hover:border-pepel hover:text-pepel text-slim'" @click="tabindex = 2">Крематории</button>
+					<button type="button" class="inline-block py-[15px] px-[20px] uppercase text-medium border-transparent border-[1px] mr-[3px] min-w-[190px] mb-[5px] middle:w-full bg-deadlight" :class="tabindex === 3 ? 'bg-secondary text-white' : 'bg-deadlight hover:bg-cyanid hover:border-solid hover:border-pepel hover:text-pepel text-slim'" @click="tabindex = 3">Загсы</button>
+					<button type="button" class="inline-block py-[15px] px-[20px] uppercase text-medium border-transparent border-[1px] mr-[3px] min-w-[190px] mb-[5px] middle:w-full bg-deadlight" :class="tabindex === 4 ? 'bg-secondary text-white' : 'bg-deadlight hover:bg-cyanid hover:border-solid hover:border-pepel hover:text-pepel text-slim'" @click="tabindex = 4">Районы</button>
+				</div>
+				<div x-show="tabindex === 0" x-cloak>
+					<div class="relative mt-[15px] mb-[100px]" x-data="{scrolling: true, screened: false}">
+						<div 
+						@click="if(scrolling) screened = true"
+						id="hi"
+						class="transition-all ease-in-out duration-300"
+						:class="scrolling ? 'max-h-[350px] overflow-y-hidden' : ''"
+						:style="screened && scrolling ? `max-height: ${$el.scrollHeight}px !important;` : ''">
+							<div class="text px-[20px] pb-[25px]">
+								<span>
+									Lorem ipsum dolor sit amet, consectetur, adipisicing elit. Est laborum eaque porro, non, aperiam nesciunt rem. Pariatur tempora voluptatibus, perspiciatis id odio, aperiam iure quibudfdffffdfdddsdam omnis ratione, hic, delectus rerum mollitia consectetur. Est quos, Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus reprehenderit, alias, est obcaecati voluptates explicabo saepe ab placeat enim nam libero quos deleniti ipsam ad, tenetur esse possimus labore dolores adipisci voluptatem velit inventore nulla aperiam. Voluptatem officiis exercitationem, consequuntur veniam dolor facilis tempore autem perspiciatis ratione sit explicabo dolore. Lorem ipsum, dolor sit amet consectetur, adipisicing elit. Labore, tempora amet accusantium esse ut aspernatur eos pariatur nisi optio dolorem fugit, dolore. Ad, asperiores. Nisi eum excepturi, saepe aut beatae, quibusdam magnam, fuga reiciendis ipsum tempora, ullam rem voluptate id non. Fugit, neque? Nobis quibusdam aliquid animi atque eius commodi vel, placeat ipsam, necessitatibus, neque sed blanditiis eum reprehenderit in voluptates delectus! Aliquid mollitia est accusamus assumenda quisquam molestias consectetur voluptatum perferendis repudiandae necessitatibus animi quas omnis, pariatur suscipit, neque earum veniam commodi ipsam adipisci odit minima, voluptas sapiente facilis. Laudantium minima ea facere aliquam eveniet? Sunt quam laboriosam natus? kl Lorem ipsum dolor sit amet, consectetur adipisicing, elit. Excepturi aspernatur modi sit saepe consequuntur esse tempore suscipit perspiciatis similique, nobis atque voluptate non expedita assumenda consectetur quos maxime voluptas. Esse nesciunt aliquid quod ducimus, impedit nisi expedita quis laudantium eum facere, pariatur accusamus enim. Totam iste, ipsum sit pariatur veritatis perspiciatis nulla repudiandae, facilis maxime similique dolorem laboriosam a vitae sint. Omnis nobis laborum mollitia, debitis tempore nostrum quos tempora similique repudiandae est voluptatum numquam magni libero inventore quam magnam aliquam voluptatem id dolorum. Officia excepturi, vel soluta hic eum cupiditate ad porro libero rerum provident, nesciunt ab quibusdam. Illum! Lorem ipsum dolor sit amet, consectetur adipisicing, elit. Aliquid necessitatibus, minima amet architecto quisquam doloremque odit ut non labore laborum est, a temporibus cumque iure sed aut nisi error natus, rerum sequi cum deleniti laudantium sint esse distinctio! Nulla blanditiis architecto possimus corrupti magni repellat minus ea inventore hic, et, quae officiis voluptatum fugiat neque, nostrum labore iste distinctio facere, sit aliquid? Corrupti expedita animi voluptatum accusamus ex velit, atque vitae numquam voluptate quos, dicta repellendus et excepturi doloremque cum, pariatur aspernatur placeat molestias quaerat quae, ipsum officia tenetur. Vitae nemo nam culpa at minus error animi delectus assumenda sunt reprehenderit laudantium voluptatem dolorem autem dignissimos debitis facilis, rem, nulla tempora tempore quos, officia inventore aliquam id impedit vero. Ut in tenetur odit atque eligendi mollitia minus alias temporibus esse explicabo, similique quod quis obcaecati quam. Eveniet autem optio, incidunt cumque veritatis maiores natus exercitationem, excepturi? Et unde minus exercitationem.
+								</span>
+							</div>
+						</div>
+						<div class="absolute w-full text-center" :class="!screened ? ' bottom-0 spread-shadow' : 'bottom-[-60px]'" x-show="scrolling" x-cloak>
+							<button type="button" @click.prevent="screened = !screened" class="w-[45px] h-[45px] mt-[50px]" class="inline-block" :class="screened ? 'rotate-180' : ''" style="background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAADpJJREFUeNrsXQ1MVNkVHgYcx13UDMqgqAiKPwhVEZWirCuWGlOVbMxqDKk/rUbXxDQaNa02QU1TrdFE15qQaprVjBqTJW1WoS0lyp8ooGNBAf/oDqwCioBW0GFQZnqOPN3xzX2PNzPvd7hfcjLJfTNv3rvnu/eee+659wS5XC4dxcCFnlYBJQAFJQAFJQAFJQAFJQAFJQAFJQAFJQDFwECI0C8GBQVp9R2jQWJBJoAYQeLdroUxddDqVnYfpAvkB5B6RjQHoR7ekAAjdALIEpA5jNJnitTLVTFEsIL8G+RWoFRYkFCmqLQHGAWSAfJzkIUgI2X63w6QEpDLIH8DadZqD/Dui0JERcBuPBPkn/j4KhEkwnqQYWoigCC9aogAc0G+AelUkeLZYgc5B5KqFQL4NQTIQQz4XxzTf+9rpQ4fPrwzISGhaenSpc+GDBnimjdv3ocXCQsLGxQSEhLU2tra876soqLC2dXVpS8oKAi7fft2ZHt7u8nHR68EOQx1lCNDHSkzBAj9rS8CWID68KYFGo1Ge2Zm5o3c3NzCFy9e3HE6nR0uPwH3eAmoyc/PL1qzZk0lEOqll73CHbRTJK4rZYYAiV4mEuRboRUcGxv7KCcnpxBaapVLJiC5Ll68WBgfH2/zggh5ODOhBOC+P07XdgoZ40eMGNFx6NChYlSES2F0dnbePX78eJHZbG4XaCNkoSFLCfDxvWeB1PZXgdjiqqqqSuE3Dpf60FtXV1eWlJT0UAAR8DuplAB99/0NiIOvwrBSsXJdGoHNZiufP3/+3X5I0Iu9wYAlADNn/o6vksaNG/dES4onEQFtlH6IUIAOrAFFAKbL5zSg9Hp9b3Z2dhFY4F0u7cNusVgKDQYDXy/XgrOeAUEAwCI+Qy8tLa3m9evXD10Bhu7ubtuyZcuq+jEQMwKaAIBVfOM9tnqVGniiGYoXLlwoxB6Oxy74dUASALCVb1r3+PHjStcAQWtr663IyMinPL3BnoAiAJ/yU1JS7r1586bJNcDQ29v7ND09/Q4PCbICggDMyh3xJXFMDBBDz2cDEd3LPCT4StMEAKRzjflbt269HuDjveDOICsrq5THJvhSkwRglm/tpBfbt28fevN6qe5/BLqTOUiADWiRpgjAROa0kF5o586dZVTdZOD6BgcJcJ0hShMEYBZ1iNE6K1asuEW7ff7hYMOGDVxL4NdBDFogwB7SC6BvHNfWqY77Nwx5HEaHxSaAqBFB8B2M2ilmR+KazeaOlpaWt3q93kwj8QUF6TyfOHGi3WazRRIuL4Xr/xArIki0jSHwEKHwYWHfE5TuvHPnTgNVvld1aaqurn5uMBh6CJctcD1MrP8Sc2cQxu1FswvPnDlTAj3ALKpW7zB06ND4S5cuXSdcQuV/LX/4MM9vdX2bMBwkRw+d7vkHHqMwVTU2AFy7zKzyfQB2X52dnS3wOZ62Z9+BLmOTyRQKdfkp6xIaikmgA6eiNgD8+Sq28hHnz5+/RpXvP4KDgyMKCgqshEu47W2j4kMAE/b8UfcUFxfXQOf74voHcNGMMAw0Ymfrj171frb+L3R9GzI/AjC2levB1AK73V6/e/fusl27dl2D7rVW5R2BPi8vz0Eoj2IW25TpAXR9u2VJ3j5VA5efwcruev/MGK6FETtqf+5NmzaVE3qB+6ShXA5PYDrJOsVgB7VXZHl5uYfPHXcTqf25cQ8Cx4xglRJDwG/ZBWlpabXh4eGJajes2tranIQy1RuEoaGhUzMzM28SLu2Q2xEUSbL8LRbLa2q3S4sTJ06QbCtcep8sJwEy2b+Nj49vGDNmzByqImlhMpmmY09LuLROTgL8il1w7NixRqoeeXDkyJHnhOJf+qJPXwiAfv1pH91Er3cuWrToJ1Q18iARYDQauwlTwoVyEGAlu2D16tW3gARhVDXyICgo6NPNmzf/R4hupCDAMg8TdMeObqoWebFt2zaS7n4hNQGiSJ6/6dOnT6AqkRfR0dEzOIaBBCkJ4HFOT1JSUn1ISEgkVYnsMMJs4IEQHYlJgBR2wcaNG5uoLpTBli1bOgjFn0lJgHnsgiVLlhipKpTB/PnzSSeYzZWKAHrS+BIVFRVDVaEMTCZTLKEYy0KlIMBUHWuJF6N9abCnstPBmJgY0jG1CVIQwINtqamp1PunMFJSUpo5Gqv0BJg9e3YXVYGymDNnDmkBLkYKAownzP97qQqUBUzDScVRUhBgFMEZMYiqQFlMmDBhCKF4rBQE8PD1h4eHD6EqUBbDhg37RIiuxCCARzKGTwBUBcpi8ODBoXIRwCO9THBwcAhVgbKAafggf/TqDQGMBAJQG0BhgA5Iw7AkjiCDQPZRyIsQgWV+E+Alu+DNmzc0CFRhOJ1Okg66pCAAhQqB28YIxW+lIMALdoHdbn9FVaAsHA5Hp1w9gMfOiY6ODrtSL97U1HSjsrISj5t7rmDr66yurr7a0NCAe/h7lHiG1wBC8RMpCOARfNDS0qLIS69du/bG2LFj5yQnJ38WHh6ORKyW+xlwQyk8g33mzJmpMTExycuXL8dtW065n6Otrc0uRFdiEMBj5e/evXuyJxTEvYcWi+XDBhRM6zZ69Og4bIlyPUN9fX252Wye2Nzc/GEpPDc3dwaUV8pdH/CfpEb4gxQE+J5dcPPmTdmjgXp7ez1aWU9PjwFb4qVLl4qk/v/S0tKSSZMm/bS7u9tImBXJ3gPU1NQEE4ptUhDAI4t2WVlZhNwvDK2da2uULiMjY+HevXuvSjQeO48dO1ayAEC6GBcX1zh16tQZctfHlStXTEIaK58h402OH4/ULniwodzbpDEhJF/2DeYUcs6kkbgVnP2b06dPF/L8XxcmpNTxJLVS6Mj7XvdzDtwkSqrzATzy/CiYu8/Bc8r2u2NqQCmP/CUAHtLElwoOiaHUkfeYWofwTP/zpmF76wi6xi6oqKhoV2gWZti/f38qKI447t+9e3c8wODP8S94jExsbOxbq9VKCr7UHT16tOTcuXOzMDZPiQoAG6xZiI7E9ASWsgvOnj2r6JLwunXrFlZVVV0lnaqJVjpa62i1e3tfmOLejIiIGE06rhU3w5YAtm3btkBJb+qpU6dIC0HF3jozvBkCYnWEhM1K2AFsYO5gzD3E1VW7HwHT3xAAui3mSuyE7/vw4cPrajg5jON953qlVx/OCGpk/6laEj7hQU8xMTFNXCTA8/ix4vgIgJ9cv8dET5hJXA3viraXjpxXQC81ASwcFauOA/XAaMPcgzruPDyYy+CP7HLM2IFpbFRo6RPBQdQ8r3t2HwiwSkdI+6ayM4HtfMrU9eXiEVL2TlauXGlVW3IrjpS0m+QggJGZaqhyGHDHyZMni3T9Z/LmFZxqqu3UU2btg5R5NEwOAiD+yn4APNVajWfr8Rl0/Ylazw7k8H9865Nx7yMBFpC8glyOF6UB08EbHB4zl8otfaKNg89HeO4MOQlA9AoeOHCgRK2nbKLXjG+G4G7PqMXS98L4e8b2R8hBgN+xHwTP3H379u0TtVYePhufWxfdxw6Ho0Gtz4/rGxw92UGf/Tt+ECCUmXd6TKfUfN4u18JOfwtIagBmHucw/kYqQQBEFmn8VHMv8H4oPXr0aLGaLX1S6+fw/H3tl4fXTwLgtKNTp9HsoMXFxUXYqrTwrBxZRTGHQKRiBGDKD+o0emy8VoDHxHNMZf/i8jNplBgrWYdJUaiff/55mFKRsgEG5+LFi4NgCGDrCo3B/WKENouRNi6T1Avk5OQU0vbr/zDFMWv5yqWm1LFwHb1Tqex187a2tho84pw2ZO/x6tWr+2FhYTEY9Mq69CFlnBDdiBkQwofN7C4fu60ZM2ZEoAVL1el1z9yZnJw8mKB8VPqW98r3F3oRH7gOPv7ELn/06FHEmjVrvqcq9Q7bt2+vqa2tjSZcOgF1XS4m00RLH88Q6jJpzLJYLNQeEIiCggKucR+ztBlcIqaPF5UAzPdGMb5pjxfAbF1Uvfyoq6sr41A+LsFH+6MbWQjAfDedFGCBc1m1rrKpZdUS11M4CPClGLqRhQDM97NIL4Iv+PTpUytV98fAGD+OZd537l4xdSMLAZjfZHOtt9tstnKq9j6g15QnXuGcFLqRiwBoFH5HejEcDqxWa+lAV/6DBw+u8XT7l0lGn2YIwPzOyDUzQLl48eKAnR1guBpPcAoeOjFMSt3IQgDXjxtLOaN0MYJXbVG3EsPOt68RBDOCjZRFN3L8iVtPkMcXjYOrXoGuedy8kpiYWM+jfOwVQr2sW/UTwM0m+Ibr5XEsxG4xUJVfVVVVymPpv4/sNfhQr9oggNu9DvIFZmJ4FraUQFE8RkvznS/AyJ+xgfhYn9oiAHO/DNIGE/feAN3HGrcN7Gjk9hOSjhFV6/2sS+0RgLlnNOPfdvFtyMQ1cY0RwVFRUVEiIAwdzy6YLEI9apMAzH0NTPfXb7w+tiYgwku1ah1Jigs5ZrO5XcAGFLSFjCLVoXYJ4Hb/VKZF8Fbc8OHDX2JEr5o2b+Cmk+zs7CK+8wncBPclpItcd9ongNssYScp0pgk8fHxNuwVlAhDxy1a+fn5RXwbTQjx+1m+WPkDhgBu/xVJOoeAT9CPgD0DrjaCctol6N47GhsbK7ClI/G83Gj6d66lXKUJIFpMoBSA/8QEiH8A+cLb3yYmJv531qxZ7bNnz7bDp37KlCkmzHASGhoarSMkv2DQ09XV9S56qa6u7ll1dbUTD8O0Wq0juA6K6gf/AtkL9VQpcT35rhuXfxtD5MJkjIFnulGXysXBGHgJSlaYS6adQXID9yOu51tcUlDQt79J50XCJkoA/4B2wh5m4UQppdcymzOiVRhVLL0NoCJgHOIikJ8x08nJEv0PLuJgRG4+yBWQZhWHlQvTa4AQgA0DMwZPA5mk6zvf8H1C5Wl8RiBIjZuy65l5+220C0G6NbSvQFwCUAQmaNIoSgAKSgAKSgAKSgAKSgAKSgAKSgAKSgCKAYL/CzAAXmQXTP7LmYAAAAAASUVORK5CYII=) no-repeat; background-size: 100% 100%;"></button>
+						</div>
+					<div>
+				</div>
+				<div x-show="tabindex === 1" x-cloak>
+					<div class="text">
+						1
+					</div>
+				</div>
+				<div x-show="tabindex === 2" x-cloak>
+					<div class="text">
+						2
+					</div>
+				</div>
+				<div x-show="tabindex === 3" x-cloak>
+					<div class="text">
+						3
+					</div>
+				</div>
+				<div x-show="tabindex === 4" x-cloak>
+					<div class="text">
+						4
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+		<div class="catalog" style="margin-top: 25px; margin-bottom: 35px;">
+			<div class="container">
+				<div class="flex medium:justify-center flex-wrap">
+					<a href="#" class="col-ms p-[5px] regular:p-[15px] rounded-[5px] border-[1px] border-solid border-lightgray bg-smoothlighty hover:border-sable">
+						<p class="mt-[4px] mb-[15px] text-semi text-dark px-[15px]">Гробы</p>
+						<div class="w-full flex justify-center p-[15px] py-[25px]">
+							<img src="https://ritualgenesis.ru/local/templates/silversite/images/categories/categories-5.svg" class="hover:scale-110 transition-all duration-300 ease-in-out w-[150px] h-[150px]" alt="">
+						</div>
+					</a>
+					<a href="#" class="col-ms p-[5px] regular:p-[15px] rounded-[5px] border-[1px] border-solid border-lightgray bg-smoothlighty hover:border-sable">
+						<p class="mt-[4px] mb-[15px] text-semi text-dark px-[15px]">Постели, подушки, покрывала</p>
+						<div class="w-full flex justify-center p-[15px] py-[25px]">
+							<img src="https://ritualgenesis.ru/local/templates/silversite/images/categories/categories-4.svg" class="hover:scale-110 transition-all duration-300 ease-in-out w-[150px] h-[150px]" alt="">
+						</div>
+					</a>
+					<a href="#" class="col-ms p-[5px] regular:p-[15px] rounded-[5px] border-[1px] border-solid border-lightgray bg-smoothlighty hover:border-sable">
+						<p class="mt-[4px] mb-[15px] text-semi text-dark px-[15px]">Кресты и таблички</p>
+						<div class="w-full flex justify-center p-[15px] py-[25px]">
+							<img src="https://ritualgenesis.ru/local/templates/silversite/images/categories/categories-3.svg" class="hover:scale-110 transition-all duration-300 ease-in-out w-[150px] h-[150px]" alt="">
+						</div>
+					</a>
+					<a href="#" class="col-ms p-[5px] regular:p-[15px] rounded-[5px] border-[1px] border-solid border-lightgray bg-smoothlighty hover:border-sable">
+						<p class="mt-[4px] mb-[15px] text-semi text-dark px-[15px]">Венки, корзины, ветки памяти</p>
+						<div class="w-full flex justify-center p-[15px] py-[25px]">
+							<img src="https://ritualgenesis.ru/local/templates/silversite/images/categories/categories-2.svg" class="hover:scale-110 transition-all duration-300 ease-in-out w-[150px] h-[150px]" alt="">
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
 	</main>
 	<footer class="footer w-full bg-gray text-white" style="margin-top: 50px;">
 		<div class="container">
@@ -449,7 +722,7 @@
 					<div class="flex flex-col semi:basis-full semi:items-center semi:mb-5">
 						<p class="font-bold semi:text-large">Меню</p>
 						<ul class="flex flex-col">
-							<li><a href="#" class="hover:underline focus:underline text-light semi:text-semi">О компании</a></li>
+							<li class="semi:text-center"><a href="#" class="hover:underline focus:underline text-light semi:text-semi">О компании</a></li>
 							<li><a href="#" class="hover:underline focus:underline text-light semi:text-semi">О компании</a></li>
 							<li><a href="#" class="hover:underline focus:underline text-light semi:text-semi">О компании</a></li>
 							<li><a href="#" class="hover:underline focus:underline text-light semi:text-semi">О компании</a></li>
